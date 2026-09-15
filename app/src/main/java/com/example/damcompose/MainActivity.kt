@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -39,16 +40,16 @@ fun Greeting(modifier: Modifier = Modifier) {
         modifier = modifier
     ) {
         Text(
-            text = "Mi primera app en compose"
-            //modifier = modifier
+            text = "Mi primera app en compose",
+            modifier = Modifier.padding(16.dp)
         )
         Text("desarrollo de interfaces")
         Text("kotlin + jetpack compose")
 
-        Row{
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ){
             Text("Kotlin"
-            //, Modifier.padding(end = 16.dp)
-                //o ros(horizontalArrangement = Arrangement.spacedBy(16.dp) "quiero que haya 16 dp entre los elementos de este row
                      )
             Text("Compose")
         }
