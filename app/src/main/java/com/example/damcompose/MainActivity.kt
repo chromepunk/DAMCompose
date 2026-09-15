@@ -81,15 +81,6 @@ fun Greeting(modifier: Modifier = Modifier) {
             Text("Compose")
         }
 
-        Button(
-            onClick = {
-                mensaje = "HOOOOOOOOOOOOOOLAAAAAAAAAAAAAA"
-            }
-        ){
-            Text("HOlaaaaa")
-        }
-
-        Text(mensaje)
 
         TextField(
             value = nombre,
@@ -102,6 +93,16 @@ fun Greeting(modifier: Modifier = Modifier) {
         )
 
         Text("Has escrito: $nombre")
+
+        Button(
+            onClick = {
+                mensaje = "Hola, $nombre"
+            }
+        ){
+            Text("Saludar")
+        }
+
+        Text(mensaje)
     }
 }
 
