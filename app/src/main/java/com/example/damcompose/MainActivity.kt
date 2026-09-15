@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,7 +49,10 @@ fun Greeting(modifier: Modifier = Modifier) {
     //var mensaje = "hola"
     var mensaje by remember{
         mutableStateOf("Hola")
+    }
 
+    var nombre by remember {
+        mutableStateOf("")
     }
 
     Column(   //import con alt + enter
@@ -86,6 +90,18 @@ fun Greeting(modifier: Modifier = Modifier) {
         }
 
         Text(mensaje)
+
+        TextField(
+            value = nombre,
+            onValueChange = {
+                nombre = it
+            },
+            label = {
+                Text("Tu nombre")
+            }
+        )
+
+        Text("Has escrito: $nombre")
     }
 }
 
