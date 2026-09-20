@@ -6,11 +6,13 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -27,89 +29,67 @@ import com.example.damcompose.ui.theme.DAMComposeTheme
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
         setContent {
             DAMComposeTheme {
-                Scaffold( modifier = Modifier.fillMaxSize() ) { innerPadding ->
-                    Greeting(
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                Greeting()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(modifier: Modifier = Modifier) {
-    //var mensaje = "hola"
-    var mensaje by remember{
-        mutableStateOf("Hola")
+fun Greeting() {
+
+    var contador by remember {
+        mutableStateOf(0)
     }
 
-    var nombre by remember {
-        mutableStateOf("")
-    }
-
-    Column(   //import con alt + enter
-        modifier = modifier
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+
         Text(
-            text = "Mi primera app en compose",
+            text = "Repaso de Compose",
             modifier = Modifier
-                .padding(16.dp)
-                .background(Color.Gray)
-        )
-        Text(
-            text="desarrollo de interfaces",
-            modifier = Modifier
+                .fillMaxWidth()
                 .background(Color.LightGray)
                 .padding(16.dp)
-                .fillMaxWidth() // importa el orden?
-            )
-        Text("kotlin + jetpack compose")
+        )
 
         Row(
             horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ){
-            Text("Kotlin"
-                     )
+        ) {
+            Text("Kotlin")
             Text("Compose")
         }
 
+        Box(
+            modifier = Modifier
+                .size(200.dp)
+                .background(Color.LightGray),
+            contentAlignment = Alignment.Center
+        ) {
+            Text("Box")
+        }
 
-        TextField(
-            value = nombre,
-            onValueChange = {
-                nombre = it
-            },
-            label = {
-                Text("Tu nombre")
-            }
-        )
-
-        Text("Has escrito: $nombre")
+        Text("Contador: $contador")
 
         Button(
             onClick = {
-                mensaje = "Hola, $nombre"
+                contador++
             }
-        ){
-            Text("Saludar")
+        ) {
+            Text("Incrementar")
         }
-
-        Text(mensaje)
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    DAMComposeTheme {
-        Greeting()
     }
 }
