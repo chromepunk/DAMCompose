@@ -3,13 +3,10 @@ package com.example.damcompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,7 +16,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.damcompose.ui.theme.DAMComposeTheme
 import kotlinx.coroutines.delay
@@ -31,31 +27,29 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             DAMComposeTheme {
-                Semaforo()
+                Contador()
             }
         }
     }
 }
 
 @Composable
-fun Semaforo() {
+fun Contador() {
 
-    var estado by remember {
+    var contador by remember {
         mutableStateOf(0)
     }
 
-    LaunchedEffect(Unit) {
+    //si detecta que cambia el efecto lo vuelve a lanzar
+    // aunque no haya terminado la ejecucion anterior, con
+    // unit es una clave que nunca cambia
+    LaunchedEffect(contador) {
 
-        while (true) {
+        println("EMPIEZA efecto con contador = $contador")
 
-            delay(2000)
+        delay(5000)
 
-            estado++
-
-            if (estado == 3) {
-                estado = 0
-            }
-        }
+        println("TERMINA efecto con contador = $contador")
     }
 
     Column(
@@ -65,38 +59,15 @@ fun Semaforo() {
     ) {
 
         Text(
-            text = "Semáforo"
+            text = "Contador: $contador"
         )
 
-        Luz(
-            color = Color.Red,
-            encendida = estado == 0
-        )
-
-        Luz(
-            color = Color.Yellow,
-            encendida = estado == 1
-        )
-
-        Luz(
-            color = Color.Green,
-            encendida = estado == 2
-        )
+        Button(
+            onClick = {
+                contador++
+            }
+        ) {
+            Text("Incrementar")
+        }
     }
-}
-
-@Composable
-fun Luz(
-    color: Color,
-    encendida: Boolean
-) {
-
-    Box(
-        modifier = Modifier
-            .size(80.dp)
-            .background(
-                if (encendida) color else Color.DarkGray,
-                CircleShape
-            )
-    )
 }
